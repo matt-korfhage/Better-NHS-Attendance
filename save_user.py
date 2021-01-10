@@ -10,8 +10,8 @@ import Adafruit_CharLCD as LCD
 #This initializes connection to the SQL database
 db = mysql.connector.connect(
   host="localhost",
-  user="attendanceadmin",
-  passwd="pimylifeup",
+  user="nicoletAdmin",
+  passwd="nicoletAdmin",
   database="attendancesystem"
 )
 
