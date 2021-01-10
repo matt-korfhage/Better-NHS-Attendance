@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 
-//These imports will allow us to use prewritten libraries to execute certain functions easier
+#These imports will allow us to use prewritten libraries to execute certain functions easier
 import time
 import RPi.GPIO as GPIO
 from mfrc522 import SimpleMFRC522
 import mysql.connector
 import Adafruit_CharLCD as LCD
 
-//This initializes connection to the SQL database
+#This initializes connection to the SQL database
 db = mysql.connector.connect(
   host="localhost",
   user="attendanceadmin",
@@ -19,7 +19,7 @@ cursor = db.cursor()
 reader = SimpleMFRC522()
 lcd = LCD.Adafruit_CharLCD(4, 24, 23, 17, 18, 22, 16, 2, 4);
 
-//If there is no current card, request one
+#If there is no current card, request one
 try:
   while True:
     lcd.clear()
@@ -28,7 +28,7 @@ try:
     cursor.execute("SELECT id FROM users WHERE rfid_uid="+str(id))
     cursor.fetchone()
     
-    //Once a card is recognized, check for exiting info and ask for overwrite permission if card isn't blank
+    #Once a card is recognized, check for exiting info and ask for overwrite permission if card isn't blank
     if cursor.rowcount >= 1:
       lcd.clear()
       lcd.message("Overwrite\nexisting user?")
@@ -37,7 +37,7 @@ try:
         lcd.clear()
         lcd.message("Overwriting user.")
         time.sleep(1)
-        // All of the sql clls here insert the data from the card into the SQL server
+        #All of the sql calls here insert the data from the card into the SQL server
         sql_insert = "UPDATE users SET name = %s WHERE rfid_uid=%s"
       else:
         continue;
@@ -49,7 +49,7 @@ try:
 
     cursor.execute(sql_insert, (new_name, id))
     
-    //This officially commits the data in the script to the SQL database
+    #This officially commits the data in the script to the SQL database
     db.commit()
 
     lcd.clear()
