@@ -5,7 +5,7 @@ from mfrc522 import SimpleMFRC522
 import mysql.connector
 import Adafruit_CharLCD as LCD
 
-#This program just verifies the data in record_attendance.py
+#This program just verifies the data in save_user.py
 db = mysql.connector.connect(
   host="localhost",
   user="nicoletAdmin",
